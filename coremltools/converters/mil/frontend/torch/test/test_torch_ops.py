@@ -383,6 +383,18 @@ class TestDot(TorchBaseTest):
         TorchBaseTest.run_compare_torch((vector1, vector2), model, backend=backend, input_as_shape=False)
 
 
+class TestTriu(TorchBaseTest):
+    @pytest.mark.parametrize("shape, backend",
+                             itertools.product([(3, 3), (2, 4), (5, 1)], backends)
+                             )
+    def test_triu(self, shape, backend):
+        model = ModuleWrapper(function=torch.triu)
+
+        matrix = generate_input_data(shape)
+
+        TorchBaseTest.run_compare_torch(matrix, model, backend=backend, input_as_shape=False)
+
+
 class TestNorms(TorchBaseTest):
     @pytest.mark.parametrize(
         "shape, backend, keepdim",
