@@ -395,7 +395,6 @@ class TestTriu(TorchBaseTest):
         TorchBaseTest.run_compare_torch(matrix, model, backend=backend, input_as_shape=False)
 
 
-
 class TestNorms(TorchBaseTest):
     @pytest.mark.parametrize(
         "shape, backend, keepdim",
