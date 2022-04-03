@@ -206,7 +206,6 @@ class TestElementWiseUnary(TorchBaseTest):
                 "tan",
                 "tanh",
                 "sign",
-                "triu",
             ],
         ),
     )
@@ -278,13 +277,10 @@ class TestElementWiseUnary(TorchBaseTest):
         itertools.product(
             backends,
             [(1, 3, 5, 8)],
-            [
-                "abs",
-                "acos",
-            ],
+            [None, 1],
         ),
     )
-    def test_triu2(self, backend, shape, op_string):
+    def test_triu(self, backend, shape, op_string):
         model = ModuleWrapper(function=torch.triu)
         self.run_compare_torch(
             shape, model, backend=backend,
