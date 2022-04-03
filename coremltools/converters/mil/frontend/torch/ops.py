@@ -387,12 +387,6 @@ def mv(context, node):
     context.add(res)
 
 @register_torch_op
-def triu(context, node):
-    inputs = _get_inputs(context, node, expected=1)
-    x = mb.band_part(x=inputs[0], lower=0, upper=-1)
-    context.add(x)
-
-@register_torch_op
 def frobenius_norm(context, node):
     x, dim, keep_dims = _get_inputs(context, node, expected=3)
     result = mb.reduce_l2_norm(x=x, axes=dim, keep_dims=keep_dims, name=node.name)
@@ -3775,6 +3769,11 @@ def clamp(context, node):
     max_val = inputs[2] if inputs[2] else _np.finfo(_np.float32).max
     context.add(mb.clip(x=inputs[0], alpha=min_val, beta=max_val, name=node.name))
 
+@register_torch_op
+def triu(context, node):
+    inputs = _get_inputs(context, node, expected=2)
+    diagonal = inputs[1] if inputs[1] else -1
+    context.add(mb.band_part(x=inputs[0], lower=0, upper=diagonal, name=node.name))
 
 @register_torch_op
 def cos(context, node):
