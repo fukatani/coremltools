@@ -2694,7 +2694,6 @@ class TestElementWiseUnary(TorchBaseTest):
             shape, model, backend=backend,
         )
 
-
     @pytest.mark.parametrize(
         "backend, shape, diagonal",
         itertools.product(
@@ -2711,7 +2710,6 @@ class TestElementWiseUnary(TorchBaseTest):
         self.run_compare_torch(
             shape, model, backend=backend,
         )
-
     @pytest.mark.parametrize(
         "backend, shape, threshold",
         itertools.product(
@@ -2720,6 +2718,7 @@ class TestElementWiseUnary(TorchBaseTest):
             [(0.0, 0.0), (0.5, 0.5), (0.5, 10), (0.9, 0.0)]
         ),
     )
+
     def test_threshold(self, backend, shape, threshold):
         model = torch.nn.Threshold(threshold[0], threshold[1]).eval()
         self.run_compare_torch(
