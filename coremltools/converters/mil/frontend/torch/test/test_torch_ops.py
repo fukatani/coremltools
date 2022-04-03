@@ -389,7 +389,7 @@ class TestTriu(TorchBaseTest):
                              )
     def test_triu(self, shape, backend):
         model = ModuleWrapper(function=torch.triu)
-        TorchBaseTest.run_compare_torch(shape, model, backend=backend, input_as_shape=False)
+        TorchBaseTest.run_compare_torch(shape, model, backend=backend)
 
 
 class TestNorms(TorchBaseTest):
