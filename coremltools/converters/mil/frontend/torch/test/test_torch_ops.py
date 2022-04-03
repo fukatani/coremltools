@@ -392,7 +392,7 @@ class TestTriu(TorchBaseTest):
 
         matrix = generate_input_data(shape)
 
-        TorchBaseTest.run_compare_torch(matrix, model, backend=backend, input_as_shape=False)
+        TorchBaseTest.run_compare_torch((matrix,), model, backend=backend, input_as_shape=False)
 
 
 class TestNorms(TorchBaseTest):
