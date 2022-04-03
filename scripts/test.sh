@@ -94,7 +94,7 @@ if [[ ! -z "${WHEEL_PATH}" ]]; then
    cd ${COREMLTOOLS_HOME}/coremltools/test
 fi
 
-$PIP_EXECUTABLE install torch==1.10.2 torchvision==0.11.3 --extra-index-url https://download.pytorch.org/whl/cpu
+$PIP_EXECUTABLE install torch==1.10.2 torchvision==0.11.3 --extra-index-url https://download.pytorch.org/whl/cpu --trusted-host https://download.pytorch.org
 
 # Now run the tests
 echo "Running tests"
