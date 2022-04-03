@@ -3776,6 +3776,12 @@ def triu(context, node):
     context.add(mb.band_part(x=inputs[0], lower=0, upper=diagonal, name=node.name))
 
 @register_torch_op
+def tril(context, node):
+    inputs = _get_inputs(context, node, expected=2)
+    diagonal = inputs[1] if inputs[1] else -1
+    context.add(mb.band_part(x=inputs[0], lower=diagonal, upper=0, name=node.name))
+
+@register_torch_op
 def cos(context, node):
     inputs = _get_inputs(context, node, expected=1)
     context.add(mb.cos(x=inputs[0], name=node.name))

@@ -2682,7 +2682,7 @@ class TestElementWiseUnary(TorchBaseTest):
         itertools.product(
             backends,
             [(1, 3, 5, 8)],
-            [None, 1],
+            [None, 1, 3],
         ),
     )
     def test_triu(self, backend, shape, diagonal):
@@ -2690,6 +2690,24 @@ class TestElementWiseUnary(TorchBaseTest):
         if diagonal is not None:
             params_dict["diagonal"] = diagonal
         model = ModuleWrapper(function=torch.triu)
+        self.run_compare_torch(
+            shape, model, backend=backend,
+        )
+
+
+    @pytest.mark.parametrize(
+        "backend, shape, diagonal",
+        itertools.product(
+            backends,
+            [(1, 3, 5, 8)],
+            [None, 1],
+        ),
+    )
+    def test_tril(self, backend, shape, diagonal):
+        params_dict = {}
+        if diagonal is not None:
+            params_dict["diagonal"] = diagonal
+        model = ModuleWrapper(function=torch.tril)
         self.run_compare_torch(
             shape, model, backend=backend,
         )
