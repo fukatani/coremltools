@@ -52,3 +52,16 @@ class TestElementWiseUnary(TorchBaseTest):
         self.run_compare_torch(
             shape, model, backend=backend, rand_range=(-5, 5)
         )
+
+
+class TestDot(TorchBaseTest):
+    @pytest.mark.parametrize("vector_length, backend",
+                             itertools.product([1, 5, 11], backends)
+                             )
+    def test_mv(self, vector_length, backend):
+        model = ModuleWrapper(function=torch.dot)
+
+        vector1 = generate_input_data((vector_length, ))
+        vector2 = generate_input_data((vector_length, ))
+
+        TorchBaseTest.run_compare_torch((vector1, vector2), model, backend=backend, input_as_shape=False)

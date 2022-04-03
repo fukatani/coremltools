@@ -376,7 +376,8 @@ def dot(context, node):
     inputs = _get_inputs(context, node, expected=2)
     xy = mb.mul(x=inputs[0], y=inputs[1])
     sum_xy = mb.reduce_sum(x=xy, axes=[0])
-    context.add(sum_xy, node.name)
+    a = mb.add(x=sum_xy, y=sum_xy, name=node.name)
+    context.add(a, node.name)
 
 @register_torch_op
 def mv(context, node):
