@@ -20,12 +20,13 @@ scipy > 1.4
 six
 sympy > 1.6
 tensorflow==1.14.0; python_version < '3.8'
-torch==1.5.0; python_version == '3.5'
-torch==1.10.2; python_version > '3.5'
-torchvision==0.6.1; python_version == '3.5'
-torchvision==0.11.3; python_version > '3.5'
+torch-cpu==1.5.0; python_version == '3.5'
+torch-cpu==1.10.2; python_version > '3.5'
+torchvision-cpu==0.6.1; python_version == '3.5'
+torchvision-cpu==0.11.3; python_version > '3.5'
 xgboost==1.4.2
 mock
 wrapt
 tqdm
 pytest-timeout
+expecttest
