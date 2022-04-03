@@ -190,8 +190,9 @@ def _get_inputs(context, node, expected=None, min_expected=None):
 
         if len(inputs) not in expected:
             raise ValueError(
-                "node {} ({}) got {} input(s), expected {}".format(
-                    node.name, node.kind, len(inputs), expected
+                "node {} ({}) got {} input(s), expected {} {}".format(
+                    node.name, node.kind, len(inputs), expected,
+                    inputs
                 )
             )
     if min_expected is not None:
