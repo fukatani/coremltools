@@ -50,5 +50,5 @@ class TestElementWiseUnary(TorchBaseTest):
             params_dict["diagonal"] = diagonal
         model = ModuleWrapper(function=torch.triu)
         self.run_compare_torch(
-            shape, model, backend=backend,
+            shape, model, backend=backend, rand_range=(-5, 5)
         )
