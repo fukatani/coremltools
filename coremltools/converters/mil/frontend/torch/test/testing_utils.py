@@ -169,7 +169,6 @@ def convert_and_compare(input_data, model_spec,
     coreml_inputs = convert_to_coreml_inputs(mlmodel.input_description, input_data)
 
     if not _IS_MACOS or (mlmodel.is_package and coremltoolsutils._macos_version() < (12, 0)):
-        print("!!!macos", file=sys.stderr)
         return model_spec, mlmodel, coreml_inputs, None
 
     _, dtype = backend
