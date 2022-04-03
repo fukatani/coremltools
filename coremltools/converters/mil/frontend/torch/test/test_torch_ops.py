@@ -40,7 +40,7 @@ class TestElementWiseUnary(TorchBaseTest):
         "backend, shape, diagonal",
         itertools.product(
             backends,
-            [((2, 3), (3, 1), (1, 4), (5, 8))],
+            [(2, 3), (3, 1), (1, 4), (5, 8)],
             [None, 1, 3],
         ),
     )
