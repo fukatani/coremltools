@@ -206,6 +206,7 @@ class TestElementWiseUnary(TorchBaseTest):
                 "tan",
                 "tanh",
                 "sign",
+                "triu",
             ],
         ),
     )

@@ -388,12 +388,6 @@ def mv(context, node):
     context.add(res)
 
 @register_torch_op
-def triu(context, node):
-    inputs = _get_inputs(context, node, expected=1)
-    x = mb.band_part(x=inputs[0], lower=0, upper=-1)
-    context.add(x)
-
-@register_torch_op
 def frobenius_norm(context, node):
     x, dim, keep_dims = _get_inputs(context, node, expected=3)
     result = mb.reduce_l2_norm(x=x, axes=dim, keep_dims=keep_dims, name=node.name)
@@ -3890,6 +3884,11 @@ def threshold(context, node):
 def sign(context, node):
     inputs = _get_inputs(context, node, expected=1)
     context.add(mb.sign(x=inputs[0], name=node.name))
+
+@register_torch_op
+def triu(context, node):
+    inputs = _get_inputs(context, node, expected=1)
+    context.add(mb.band_part(x=inputs[0], lower=0, upper=-1))
 
 @register_torch_op
 def is_floating_point(context, node):
