@@ -185,6 +185,10 @@ def convert_and_compare(input_data, model_spec,
             if torch_result.shape == ():
                 torch_result = np.array([torch_result])
             np.testing.assert_equal(coreml_result.shape, torch_result.shape)
+            import sys
+            print("here", file=sys.stderr)
+            print(torch_result, file=sys.stderr)
+            print(coreml_results, file=sys.stderr)
             np.testing.assert_allclose(coreml_result, torch_result,
                                        atol=atol)
     return model_spec, mlmodel, coreml_inputs, coreml_results
