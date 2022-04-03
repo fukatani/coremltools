@@ -273,6 +273,23 @@ class TestElementWiseUnary(TorchBaseTest):
         )
 
     @pytest.mark.parametrize(
+        "backend, shape, op_string",
+        itertools.product(
+            backends,
+            [(1, 3, 5, 8)],
+            [
+                "abs",
+                "acos",
+            ],
+        ),
+    )
+    def test_triu2(self, backend, shape, op_string):
+        model = ModuleWrapper(function=torch.triu)
+        self.run_compare_torch(
+            shape, model, backend=backend,
+        )
+
+    @pytest.mark.parametrize(
         "backend, shape",
         itertools.product(
             backends,
