@@ -3889,7 +3889,7 @@ def sign(context, node):
 def triu(context, node):
     inputs = _get_inputs(context, node, expected=2)
     upper = inputs[1] if inputs[1] else -1
-    context.add(mb.band_part(x=inputs[0], lower=0, upper=upper))
+    context.add(mb.band_part(x=inputs[0], lower=0, upper=upper, name=node.name))
 
 @register_torch_op
 def is_floating_point(context, node):
