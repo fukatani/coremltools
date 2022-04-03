@@ -169,12 +169,14 @@ def convert_and_compare(input_data, model_spec,
     coreml_inputs = convert_to_coreml_inputs(mlmodel.input_description, input_data)
 
     if not _IS_MACOS or (mlmodel.is_package and coremltoolsutils._macos_version() < (12, 0)):
+        print("!!!macos", file=sys.stderr)
         return model_spec, mlmodel, coreml_inputs, None
 
     _, dtype = backend
     if dtype == "fp16":
         atol = max(atol * 100.0, 5e-1)
 
+    print("!!!here2", file=sys.stderr)
     if not coremltoolsutils._has_custom_layer(mlmodel.get_spec()):
         coreml_results = mlmodel.predict(coreml_inputs, useCPUOnly=True)
         sorted_coreml_results = [
@@ -186,7 +188,7 @@ def convert_and_compare(input_data, model_spec,
                 torch_result = np.array([torch_result])
             np.testing.assert_equal(coreml_result.shape, torch_result.shape)
             import sys
-            print("here", file=sys.stderr)
+            print("!!!here", file=sys.stderr)
             print(torch_result, file=sys.stderr)
             print(coreml_results, file=sys.stderr)
             np.testing.assert_allclose(coreml_result, torch_result,
