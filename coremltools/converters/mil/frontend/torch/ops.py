@@ -3887,7 +3887,7 @@ def sign(context, node):
 
 @register_torch_op
 def triu(context, node):
-    inputs = _get_inputs(context, node, expected=1)
+    inputs = _get_inputs(context, node, expected=2)
     context.add(mb.band_part(x=inputs[0], lower=0, upper=-1))
 
 @register_torch_op
