@@ -3164,6 +3164,8 @@ class TestBitWiseLogical(TorchBaseTest):
                 ([2, 0, -1, 0, 5], [1, 1, 0, 0, -5]),
             ],
             [
+                "eq",
+                "ne",
                 "logical_and",
                 "logical_or",
                 "logical_xor",
