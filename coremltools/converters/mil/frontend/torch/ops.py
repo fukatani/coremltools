@@ -4950,3 +4950,23 @@ def trace(context, node):
     diagonal = mb.gather_nd(x=x, indices=indices)
     trace = mb.reduce_sum(x=diagonal, name=node.name)
     context.add(trace)
+
+
+@register_torch_op
+def diagonal(context, node):
+    inputs = _get_inputs(context, node, expected=[1, 2, 3, 4])
+    x = inputs[0]
+    offset = inputs[1]
+    dim0 = 0
+    dim1 = 1
+    dims = mb.shape(x=x)
+    dim_length0 = _value_at(dims, dim0)
+    dim_length1 = _value_at(dims, dim1)
+    min_dim = mb.minimum(x=dim_length0, y=dim_length1)
+    indices0 = mb.range_1d(end=min_dim, start=0, step=1)
+    indices1_end = mb.add(x=min_dim, y=offset)
+    indices1 = mb.range_1d(end=indices1_end, start=offset, step=1)
+    indices = mb.stack(values=[indices0, indices1], axis=1)
+    diagonal = mb.gather_nd(x=x, indices=indices)
+    transposed = mb.transpose(x=diagonal, perm=[], name=node.name)
+    context.add(transposed)

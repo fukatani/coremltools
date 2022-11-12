@@ -5144,6 +5144,19 @@ class TestTrace(TorchBaseTest):
         self.run_compare_torch(shape, model, backend=backend)
 
 
+class TestDiagonal(TorchBaseTest):
+    @pytest.mark.parametrize(
+        "backend, shape",
+        itertools.product(
+            backends,
+            [(1, 1), (2, 4), (4, 3, 2), (5, 5, 2)],
+        ),
+    )
+    def test_diagonal(self, backend, shape):
+        model = ModuleWrapper(torch.diagonal)
+        self.run_compare_torch(shape, model, backend=backend)
+
+
 class TestArgmax(TorchBaseTest):
     @pytest.mark.parametrize(
         "backend, shape, axis, input_dtype",
