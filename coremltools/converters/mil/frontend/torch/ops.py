@@ -3662,6 +3662,19 @@ def randn_like(context, node):
     context.add(rand_fp32)
 
 @register_torch_op
+def normal(context, node):
+    inputs = _get_inputs(context, node, expected=5)
+    mean = inputs[0]
+    std = inputs[1]
+    origin_shape = mb.shape(x=mean)
+    std = mb.reshape(x=std, shape=origin_shape)
+    rand_normal = mb.random_normal(shape=origin_shape)
+    a = mb.mul(x=rand_normal, y=std)
+    rand = mb.add(x=mean, y=a)
+    rand_fp32 = mb.cast(x=rand, dtype="fp32")
+    context.add(rand_fp32)
+
+@register_torch_op
 def bitwise_not(context, node):
     inputs = _get_inputs(context, node)
     x = inputs[0]

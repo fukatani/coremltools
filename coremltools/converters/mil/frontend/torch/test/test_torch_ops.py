@@ -3867,6 +3867,26 @@ class TestRandnLike(TorchBaseTest):
         )
 
 
+class TestRandNormal(TorchBaseTest):
+    @pytest.mark.parametrize(
+        "compute_unit, backend, mean_std",
+        itertools.product(
+            compute_units,
+            backends,
+            [((1,), (1,)), ((2, 3), (2, 3))],
+        ),
+    )
+    def test_rand_normal(self, compute_unit, backend, mean_std):
+        class TestModel(nn.Module):
+            def forward(self, mean_std):
+                y = torch.rand_normal(mean_std[0].shape, mean_std[1].shape)
+                return torch.Tensor([len(y)])
+
+        self.run_compare_torch(
+            mean_std, TestModel(), backend=backend, compute_unit=compute_unit
+        )
+
+
 class TestTypeAs(TorchBaseTest):
     @pytest.mark.parametrize(
         "compute_unit, backend, type",
